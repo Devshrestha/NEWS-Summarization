@@ -1,0 +1,5 @@
+--It fetches all the articles on the page and stores it in the list and also returns the list of articles.
+--This is only for educational testing purpose.
+--This could be extended to full fledge scrapping if the correct permission is taken.
+
+Credits : https://www.newsweek.com/newsfeed
