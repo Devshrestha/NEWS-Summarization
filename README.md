@@ -14,14 +14,12 @@ It also loads text and summarize them.
 #### DOWNLOAD SCRIPT 
 Scraps the internet collect articles and store  them in persistent folder
 #### FRONTEND
-container where frontend with HTML and JS scripts will be managed
+made using React, it uses a navigation bar to look around in categories
 
 
 ### [__Dataset__](https://lil.nlp.cornell.edu/newsroom/index.html)
 
-
+#### [To access our website](http://34.131.231.146/)
 ## Team members
 #### Devansh Shrestha
-#### Sarath Manoj
-#### Akshul Mittal
 #### Amit Gupta
