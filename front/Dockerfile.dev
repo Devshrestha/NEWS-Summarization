@@ -12,7 +12,7 @@ RUN set -ex; \
 EXPOSE 3000
 
 # Switch to the new user
-USER app
+# USER app
 WORKDIR /app
 
 ENTRYPOINT ["/bin/bash"]
