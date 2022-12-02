@@ -8,6 +8,11 @@ verify_ssl = true
 [packages]
 uvicorn = "*"
 fastapi = "*"
+transformers="*"
+tensorflow="==2.8.0"
+protobuf = "==3.20.0"
+google-auth = "*"
+google-cloud-storage = "*"
 
 [requires]
 python_version = "3.8"
