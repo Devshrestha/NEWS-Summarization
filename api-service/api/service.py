@@ -19,19 +19,50 @@ app.add_middleware(
 )
 
 # Routes
+# @app.get("/")
+# async def get_index():
+#     return {
+#         "message": "Home mising webpage"
+#     }
+
 @app.get("/")
-async def get_index():
-    return {
-        "message": "Home mising webpage"
-    }
-
-@app.get("/home")
 async def get_summaries():
-    final={}
-    sum,hed=get_prediction()
-
-    for i in hed.keys():
-        final[hed[i]] = sum[i]
-    
+    final=[]
+    summary_dict=get_prediction()
+    for keys in summary_dict.keys():
+        for k,v in summary_dict[keys].items():
+            final.append({'hed':k,'sum':v})
+ 
     return final
-        
+
+@app.get("/inter")
+async def get_summaries_international():
+    final=[]
+    v=get_prediction()
+    for k,v in v['internat'].items():
+        final.append({'hed':k,'sum':v})
+    return final
+    
+@app.get("/national")
+async def get_summaries_national():
+    final=[]
+    summary_dict=get_prediction()
+    for k,v in summary_dict['nat'].items():
+        final.append({'hed':k,'sum':v})
+    return final
+
+@app.get("/sport")
+async def get_summaries_sports():
+    final=[]
+    summary_dict=get_prediction()
+    for k,v in summary_dict['sports'].items():
+        final.append({'hed':k,'sum':v})
+    return final
+
+@app.get("/tech")
+async def get_summaries_tech():
+    final=[]
+    summary_dict=get_prediction()
+    for k,v in summary_dict['tech'].items():
+        final.append({'hed':k,'sum':v})
+    return final

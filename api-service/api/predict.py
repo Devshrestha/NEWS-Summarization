@@ -27,10 +27,17 @@ def load_data(article_dir_path):
         f = open(file_path,'r')
         json_file = json.load(f)
         f.close()
-        headings[i]=list(json_file.keys())[0]
-        text[i]=list(json_file.values())[0]
+        headings[file]=list(json_file.keys())
+        text[file]=list(json_file.values())
     return text,headings
     
+def load_data_sum(file_path):
+    for i,file in enumerate(os.listdir(file_path)):
+        file_path  = os.path.join(file_path,file)
+        f = open(file_path,'r')
+        json_file = json.load(f)
+        f.close()
+    return json_file
         
 def get_prediction():
     today = datetime.date.today()
@@ -40,23 +47,31 @@ def get_prediction():
     
     if os.path.exists(sum_path):
         # summaries already exists
-        summaries,heds=load_data(sum_path)
+        summary_dict=load_data_sum(sum_path)
     else:
         # also store to storage
         os.makedirs(sum_path)
         articles,heds=load_data(article_path)
+
         model = load_model()
         summaries = {}
+        summary_dict={}
         for idx,text in articles.items():
-            summaries[idx]=predict(text,model)
+            category = idx.split('.')[0]
+            summaries[category]=[]
+            for i,arts in enumerate(text):
+                summaries[category].append(predict(arts,model))
+            temp_dict={}
+            for i in range(len(summaries[category])):
+                temp_dict[heds[idx][i]]=summaries[category][i]
+            summary_dict[category] = temp_dict
 
-            summary_dict = {heds[idx][0]:summaries[idx]}
-            file_name =f'news{idx}.json'
-            file_path = os.path.join(sum_path,file_name)
-            with open(file_path,'w') as f:
-                json.dump(summary_dict,f,indent=4)
-    
-    return summaries,heds
+        file_name ='news.json'
+        file_path = os.path.join(sum_path,file_name)
+        with open(file_path,'w') as f:
+            json.dump(summary_dict,f,indent=4)
+
+    return summary_dict
 
 if __name__== '__main__':
     sum = get_prediction()
